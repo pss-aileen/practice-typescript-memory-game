@@ -29,6 +29,21 @@ class Session {
     Session.allText.push({ id: Session.clickCount, text: this.text });
   }
 
+  checkSession() {
+    // セッションの状況を関して、1つめなら新しいオブジェクトの作成
+    // セッションの2回目なら判定を行う的な
+    // そして結果を表示する...ほへぇ.........難しいよぉ
+  }
+
+  createNewSession() {
+    const session = {
+      id: 0,
+      firstId: 'test',
+      secondId: 'test',
+      idIsSame: true,
+    };
+  }
+
   getAllSession() {
     return Session.allText;
   }
@@ -40,6 +55,8 @@ class Session {
 
 class Card {
   static clickCount: number = 0;
+  // idとして使う。
+  static cardNumber: number = 0;
   type: string;
   number: number;
   constructor(type: string, number: number) {
@@ -72,6 +89,15 @@ class Card {
       session.showAllSession();
     });
   }
+
+  doubleCards() {
+    // ここで、今まで作ったインスタンスをもうひとせっと作成する。
+    // IDを同じにする
+    // んで、SessionでIDが同じか確認する。
+    // 同じだったらひっくりかえす的な
+    // 単純に考えるとインスタンスは増やさすに、ダブルドムを出す感じだね..。
+    // ということはドムを返す時に2倍にすればいいのか。なるほど
+  }
 }
 
 const gameBoard = new Game('game');
@@ -80,6 +106,4 @@ const a = new Card('Heart', 1);
 const b = new Card('Spade', 1);
 
 gameBoard.appendChild(a.createElement());
-gameBoard.appendChild(a.createElement());
-gameBoard.appendChild(b.createElement());
 gameBoard.appendChild(b.createElement());
