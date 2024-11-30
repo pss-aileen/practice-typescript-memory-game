@@ -8,7 +8,7 @@
 
     /* Bundler mode */
     "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
+    "allowImportingTsExtensions": true, // ファイルを直接インポートする際にtsを許可する
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,
