@@ -1,0 +1,33 @@
+- Game
+  - constructor
+    - elementId
+    - フィールドの決定
+    - カードの枚数の指定（1から53枚）
+  - method
+    - 要素を展開する
+    - 結果を表示する
+- Card
+  - constractor
+    - suit: カードのタイプ（Heart、Spade、Diamond、Club、joker -> 強さなし）
+      - スートについて: https://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%BC%E3%83%88
+    - カードの強さ（A、K、Q、J、10, 9, 8, 7, 6, 5, 4, 3, 2）
+  - method
+    - カードの作成: HTMLElementの作成
+    - カードのクリックイベントの関数: クリックするとセッションが動く...？
+    - カードを裏返す（クラスの付与）
+    - カードを元に戻す（クラスの付与）
+    - カードを2倍に複製する
+    - カードを指定
+      - 事前に生成しているカードのリストから、ランダムで指定された枚数分を引き出す
+- Session
+  - constructor
+    - セッションクラスを作成
+    - 引数なし
+    - static
+      - セッションの記録を残す配列
+        - `{sessionId: 1, firstId: space-01, secondId: space-01, isSame: true}` 的な感じの格納したい
+  - method
+    - カードをクリックした回数を登録する（++する）
+    - カードをクリックした回数を取得する（countを返す）
+    - セッションIDが2つが同じか判定、セッションを記録
+    - 
