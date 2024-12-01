@@ -3,8 +3,10 @@ import { Turn } from './Turn';
 export class Flip {
   static flipCount: number = 0;
   cardId: string;
-  constructor(cardId: string) {
+  element: HTMLButtonElement;
+  constructor(cardId: string, element: HTMLButtonElement) {
     this.cardId = cardId;
+    this.element = element;
     this.initialize();
     console.log(this.isFirstInTurn());
   }
@@ -20,6 +22,6 @@ export class Flip {
   }
 
   createTurn() {
-    new Turn(this.cardId, this.isFirstInTurn() ? 'first' : 'second');
+    new Turn(this.cardId, this.element, this.isFirstInTurn() ? 'first' : 'second');
   }
 }
