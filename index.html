@@ -11,12 +11,19 @@
 
 <body>
   <h1>Memory Game</h1>
+  <!-- ツイッターに結果をシェアする機能も欲しい。何枚コースで、何ターンか -->
   <form>
     <label>
       カードの枚数:
       <input type="number" value="5">
     </label>
   </form>
+  <div class="reuslt">
+    <p id="message">頑張ってください！</p>
+    <!-- 頑張ってくださいメッセージはランダムに生成したい、最終的にはね -->
+    <p>ターン数: <span id="turn-count">0</span>回</p>
+    <!-- ターンが作られるたびにアップデート -->
+  </div>
   <div id="game">
   </div>
   <script type="module" src="/src/main.ts"></script>

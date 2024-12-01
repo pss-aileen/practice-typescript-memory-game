@@ -1,11 +1,14 @@
 import { Card } from './Card';
 import { CardType } from '../types/types';
 import { randomedCards } from '../data/cards';
+import { Message } from './Message';
 
 export class Game {
   gameFieldElement: HTMLElement;
+  message: Message;
   constructor(elementId: string) {
     this.gameFieldElement = document.getElementById(elementId) as HTMLElement;
+    this.message = new Message();
   }
 
   initialize() {
