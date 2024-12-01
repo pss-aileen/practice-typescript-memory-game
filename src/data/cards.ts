@@ -1,7 +1,7 @@
 import { CardType } from '../types/types';
 
 // 1から52まで、現状
-const cardNumber: number = 4;
+const cardNumber: number = 3;
 
 const suitsTypes = ['heart', 'diamond', 'spade', 'club'];
 const strengthTypes = ['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6', '5', '4', '3', '2'];

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap');
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -12,41 +14,88 @@ body {
 #game {
   margin-top: 32px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4列を指定 */
+  grid-template-columns: repeat(5, 1fr); /* 4列を指定 */
   gap: 16px; /* 各要素の間にスペースを追加 */
 
   button {
-    aspect-ratio: 1/1.4;
-    background: #fff;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 0;
+    border: none;
     cursor: pointer;
+    position: relative;
+    aspect-ratio: 1/1.4;
+    background: transparent;
 
-    .suit {
-      display: block;
-      font-size: 24px;
+    .card-front {
+      aspect-ratio: 1/1.4;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 4px;
+      cursor: pointer;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      flex-direction: column;
+      top: 0;
+      left: 0;
+      transition: all 0.3s;
+      transform: rotateY(180deg);
+      z-index: 0;
+
+      .suit {
+        display: block;
+        font-size: 24px;
+      }
+
+      .bi-suit-heart-fill {
+        color: #e11d48;
+      }
+
+      .bi-suit-diamond-fill {
+        color: #ea580c;
+      }
+
+      .bi-suit-spade-fill {
+        color: #0284c7;
+      }
+
+      .bi-suit-club-fill {
+        color: #65a30d;
+      }
+
+      .strength {
+        display: block;
+        margin-top: 8px;
+        font-size: 24px;
+      }
     }
 
-    .bi-suit-heart-fill {
-      color: #e11d48;
-    }
-
-    .bi-suit-diamond-fill {
-      color: #ea580c;
-    }
-
-    .bi-suit-spade-fill {
-      color: #0284c7;
-    }
-
-    .bi-suit-club-fill {
-      color: #65a30d;
-    }
-
-    .strength {
-      display: block;
-      margin-top: 8px;
-      font-size: 24px;
+    .card-back {
+      border: 1px solid #eee;
+      border-radius: 4px;
+      aspect-ratio: 1/1.4;
+      display: flex;
+      width: 100%;
+      height: 100%;
+      background: #e0d9d0;
+      color: #fff;
+      font-size: 48px;
+      position: absolute;
+      align-items: center;
+      justify-content: center;
+      top: 0;
+      left: 0;
+      transition: all 0.3s;
+      /* transform: rotateY(); */
+      border-radius: 4px;
+      z-index: 1;
+      transform: rotateY(0deg);
+      font-family: 'Noto Color Emoji', sans-serif;
+      font-weight: 400;
+      font-style: normal;
     }
   }
 
@@ -55,6 +104,16 @@ body {
   }
 
   button:disabled {
-    opacity: 0.2;
+    color: inherit;
+
+    .card-front {
+      transform: translateY(0);
+      z-index: 1;
+    }
+
+    .card-back {
+      z-index: 0;
+      transform: rotateY(-180deg);
+    }
   }
 }
