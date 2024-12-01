@@ -1,23 +1,26 @@
-import { CardType } from './types';
+import { CardType } from '../types/types';
 
-const initialCards: CardType[] = [
-  {
-    suit: 'Heart',
-    strength: '1',
-  },
-  {
-    suit: 'Heart',
-    strength: '2',
-  },
-  {
-    suit: 'Heart',
-    strength: '3',
-  },
-  {
-    suit: 'Heart',
-    strength: '4',
-  },
-];
+const suitsTypes = ['Heart', 'Diamond', 'Spade', 'Club'];
+const strengthTypes = ['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6', '5', '4', '3', '2'];
+
+function generateCards() {
+  const cards: CardType[] = [];
+
+  for (let i = 0; i < suitsTypes.length; i++) {
+    for (let j = 0; j < strengthTypes.length; j++) {
+      const card = {
+        suit: suitsTypes[i],
+        strength: strengthTypes[j],
+      };
+
+      cards.push(card);
+    }
+  }
+
+  return cards;
+}
+
+const initialCards: CardType[] = generateCards();
 
 // 浅いコピーをしている状態、ここをさわれば、元の配列もかわっちゃう
 // ただ、今回は別にこれらのオブジェクトの中身を変えるわけではないので、このまま進めてOK！
