@@ -1,4 +1,3 @@
-
 export class CardElement {
   element: HTMLButtonElement;
   cardId: string;
@@ -15,7 +14,7 @@ export class CardElement {
     const spanSuit = document.createElement('span');
     const spanStrength = document.createElement('span');
 
-    spanSuit.classList.add('suit', 'bi', 'bi-suit-heart-fill');
+    spanSuit.classList.add('suit', 'bi', `bi-suit-${this.suit}-fill`);
     spanStrength.classList.add('strength');
     spanStrength.textContent = this.strength;
 
