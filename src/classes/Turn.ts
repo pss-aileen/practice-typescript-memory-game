@@ -1,6 +1,7 @@
 import { TurnType } from '../types/types';
 import { CardElement } from './CardElement';
 import { Flip } from './Flip';
+import { Message } from './Message';
 
 export class Turn {
   static turns: TurnType[] = [];
@@ -21,6 +22,7 @@ export class Turn {
     this.CardElement.beDisabled();
     if (this.type === 'first') {
       this.makeTurn();
+      Message.renderTurnCount(this.turnId + 1);
     } else {
       this.updateSecondId();
       this.updateIsSame();
@@ -72,7 +74,15 @@ export class Turn {
     }
 
     turn.isSame = turn.firstId === turn.secondId;
-    if (turn.isSame) return;
+
+    if (turn.isSame) {
+      const isAvailable = CardElement.cardElements.filter((cardElement) => cardElement.disabled === false);
+      console.log(isAvailable);
+      if (isAvailable.length === 0) {
+        Message.renderMessage('全部そろいました！おめでとう！！');
+      }
+      return;
+    }
 
     CardElement.allBeDesabledByStyle();
 
