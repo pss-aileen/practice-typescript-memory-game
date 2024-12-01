@@ -1,0 +1,44 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  padding: 24px;
+  color: #333;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#game {
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4列を指定 */
+  gap: 16px; /* 各要素の間にスペースを追加 */
+
+  button {
+    aspect-ratio: 1/1.4;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+
+    .suit {
+      display: block;
+      font-size: 24px;
+    }
+
+    .bi-suit-heart-fill {
+      color: #e11d48;
+    }
+
+    .strength {
+      display: block;
+      margin-top: 8px;
+      font-size: 24px;
+    }
+  }
+
+  button:active {
+    opacity: 0.4;
+  }
+}

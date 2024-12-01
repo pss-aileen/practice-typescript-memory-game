@@ -3,7 +3,7 @@ export type CardType = {
   strength: string;
 };
 
-type SessionLogType = {
+export type TurnType = {
   id: number;
   firstId: string;
   secondId: string;
