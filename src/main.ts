@@ -1,4 +1,8 @@
+// import { doubledCards } from './cards';
+import { randomedCards } from './cards';
 import './style.css';
+
+console.table(randomedCards);
 
 /*
   Game クラス
