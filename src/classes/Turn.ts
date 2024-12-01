@@ -60,6 +60,7 @@ export class Turn {
 
     turn.secondId = this.cardId;
     turn.secondElement = this.CardElement;
+    turn.secondElement.beDisabled();
   }
 
   updateIsSame() {
@@ -71,10 +72,14 @@ export class Turn {
     }
 
     turn.isSame = turn.firstId === turn.secondId;
-
     if (turn.isSame) return;
 
-    turn.firstElement.beActicve();
-    turn.secondElement.beActicve();
+    CardElement.allBeDesabledByStyle();
+
+    setTimeout(() => {
+      turn.firstElement.beActicve();
+      turn.secondElement.beActicve();
+      CardElement.allBeActiveByStyle();
+    }, 800);
   }
 }
