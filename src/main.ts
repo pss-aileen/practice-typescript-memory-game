@@ -1,109 +1,158 @@
 import './style.css';
 
 class Game {
-  element: HTMLElement;
+  gameFieldElement: HTMLElement;
   constructor(elementId: string) {
-    this.element = document.getElementById(elementId) as HTMLElement;
+    this.gameFieldElement = document.getElementById(elementId) as HTMLElement;
   }
 
-  appendChild(node: Node) {
-    this.element.appendChild(node);
+  initialize() {
+    console.log('Game Ready.');
+
+    // 本来は順番をランダムにして生成がよいよね...まぁちょっとあとで。
+    // カードを複製する
+    // カードをランダムに並び替える
+    // ドムを出力する
+
+    for (let i = 0; i < cards.length; i++) {
+      const cardInfo: CardType = cards[i];
+      const card = new Card({
+        suit: cardInfo.suit,
+        strength: cardInfo.strength,
+      });
+      const element1 = card.createElement();
+      const element2 = card.createElement();
+      this.gameFieldElement.appendChild(element1);
+      this.gameFieldElement.appendChild(element2);
+    }
+  }
+
+  appendChild(element: HTMLButtonElement) {
+    this.gameFieldElement.appendChild(element);
   }
 }
 
-// クリックした回数を2でわける
-// 1と2を比較して、同じならOK、違うならひっくりかえす的なプログラムが必要。
-
-type SessionObject = {
-  id: number;
-  text: string;
+type CardType = {
+  suit: string;
+  strength: string;
 };
 
-class Session {
-  static allText: SessionObject[] = [];
-  static clickCount: number = 0;
-  text: string;
-  constructor(text: string) {
-    this.text = text;
-    Session.clickCount++;
-    Session.allText.push({ id: Session.clickCount, text: this.text });
-  }
-
-  checkSession() {
-    // セッションの状況を関して、1つめなら新しいオブジェクトの作成
-    // セッションの2回目なら判定を行う的な
-    // そして結果を表示する...ほへぇ.........難しいよぉ
-  }
-
-  createNewSession() {
-    const session = {
-      id: 0,
-      firstId: 'test',
-      secondId: 'test',
-      idIsSame: true,
-    };
-  }
-
-  getAllSession() {
-    return Session.allText;
-  }
-
-  showAllSession() {
-    console.log(Session.allText);
-  }
-}
+const cards: CardType[] = [
+  {
+    suit: 'Heart',
+    strength: 'A',
+  },
+  {
+    suit: 'Spade',
+    strength: 'King',
+  },
+];
 
 class Card {
   static clickCount: number = 0;
-  // idとして使う。
-  static cardNumber: number = 0;
-  type: string;
-  number: number;
-  constructor(type: string, number: number) {
-    this.type = type;
-    this.number = number;
+  suit: string;
+  strength: string;
+  constructor({ suit, strength }: CardType) {
+    this.suit = suit;
+    this.strength = strength;
   }
 
-  // TODO: NodeとHTMLElementの違いは調べる
-  createElement(): HTMLElement {
+  createElement(): HTMLButtonElement {
     const button = document.createElement('button');
-    button.textContent = this.type + this.number;
-    this.initEvent(button);
+    button.textContent = this.suit + this.strength;
+    this.initializeEvent(button);
     return button;
   }
 
-  getType(): string {
-    return this.type;
-  }
-
-  getNumber(): number {
-    return this.number;
-  }
-
-  initEvent(dom: HTMLElement) {
-    dom.addEventListener('click', () => {
-      console.log(this.type + this.number);
+  // TODO: セッションを追加するとこまできた。カードをめくった回数を管理して、それに応じて判定するロジックを作ってみよう
+  initializeEvent(element: HTMLButtonElement) {
+    element.addEventListener('click', () => {
       Card.clickCount++;
-      console.log(Card.clickCount);
-      const session = new Session(this.type + this.number);
-      session.showAllSession();
+      console.log('ClickCount', Card.clickCount);
+      if (Card.clickCount % 2 !== 0) {
+        const session = new Session();
+        session.createSession();
+        const sessionId = session.getSessionId(Card.clickCount);
+        session.addId(sessionId, 'first', this.suit + this.strength);
+      }
+      if (Card.clickCount % 2 === 0) {
+        const session = new Session();
+        const sessionId = session.getSessionId(Card.clickCount);
+        session.addId(sessionId, 'second', this.suit + this.strength);
+        session.checkIsSame(sessionId);
+      }
+      console.table(Session.sessionLog);
     });
-  }
-
-  doubleCards() {
-    // ここで、今まで作ったインスタンスをもうひとせっと作成する。
-    // IDを同じにする
-    // んで、SessionでIDが同じか確認する。
-    // 同じだったらひっくりかえす的な
-    // 単純に考えるとインスタンスは増やさすに、ダブルドムを出す感じだね..。
-    // ということはドムを返す時に2倍にすればいいのか。なるほど
   }
 }
 
-const gameBoard = new Game('game');
+type SessionLogType = {
+  id: number;
+  firstId: string;
+  secondId: string;
+  isSame: boolean;
+};
 
-const a = new Card('Heart', 1);
-const b = new Card('Spade', 1);
+class Session {
+  static sessionLog: SessionLogType[] = [];
+  constructor() {}
 
-gameBoard.appendChild(a.createElement());
-gameBoard.appendChild(b.createElement());
+  // セッションを作って、判定して、追加していく、初期化作業
+  createSession() {
+    // console.log('Session.createSession()', Session.sessionLog.length);
+    const session = {
+      id: Session.sessionLog.length,
+      firstId: '',
+      secondId: '',
+      isSame: false,
+    };
+
+    Session.sessionLog.push(session);
+  }
+
+  getSessionId(clickCount: number) {
+    if (clickCount === 1) {
+      return 0;
+    }
+
+    if (clickCount % 2 === 0) {
+      return clickCount / 2 - 1;
+    } else {
+      const sessionId = clickCount / 2;
+      console.log(Math.floor(sessionId));
+      return Math.floor(sessionId);
+    }
+  }
+
+  addId(sessionId: number, order: 'first' | 'second', cardId: string) {
+    const session = Session.sessionLog.find((item) => item.id === sessionId);
+    console.log(session, sessionId, order, cardId);
+
+    if (!session) {
+      console.error('セッションがありません。');
+      return;
+    }
+
+    if (order === 'first') {
+      session.firstId = cardId;
+    } else if (order === 'second') {
+      session.secondId = cardId;
+    }
+  }
+
+  checkIsSame(sessionId: number): void {
+    const session = Session.sessionLog.find((item) => item.id === sessionId);
+
+    if (!session) {
+      console.error('セッションがありません。');
+      return;
+    }
+
+    if (session.firstId === session.secondId) {
+      session.isSame = true;
+    }
+  }
+}
+
+const game = new Game('game');
+game.initialize();
