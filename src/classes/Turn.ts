@@ -6,15 +6,18 @@ export class Turn {
   turnId: number = Turn.turns.length;
   cardId: string;
   type: string;
+  element: HTMLButtonElement;
 
-  constructor(cardId: string, type: 'first' | 'second') {
+  constructor(cardId: string, element: HTMLButtonElement, type: 'first' | 'second') {
     this.cardId = cardId;
     this.type = type;
+    this.element = element;
     this.initialize();
     console.table(Turn.turns);
   }
 
   initialize() {
+    this.element.disabled = true;
     if (this.type === 'first') {
       this.makeTurn();
     } else {
@@ -39,6 +42,8 @@ export class Turn {
       firstId: this.cardId,
       secondId: '',
       isSame: false,
+      firstElement: this.element,
+      secondElement: this.element,
     };
 
     Turn.turns.push(turn);
@@ -64,5 +69,12 @@ export class Turn {
     }
 
     turn.isSame = turn.firstId === turn.secondId;
+    turn.secondElement = this.element;
+
+    if (turn.isSame) {
+    } else {
+      turn.firstElement.disabled = false;
+      turn.secondElement.disabled = false;
+    }
   }
 }

@@ -32,7 +32,8 @@ export class Card {
 
   initialize() {
     this.element.addEventListener('click', () => {
-      const flip = new Flip(this.id);
+      new Flip(this.id, this.element);
     });
   }
+
 }
