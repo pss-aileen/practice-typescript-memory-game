@@ -1,5 +1,11 @@
 import './style.css';
 
+/*
+  Game クラス
+  - ゲームの初期化
+    - カードの生成
+*/
+
 class Game {
   gameFieldElement: HTMLElement;
   constructor(elementId: string) {
@@ -8,11 +14,6 @@ class Game {
 
   initialize() {
     console.log('Game Ready.');
-
-    // 本来は順番をランダムにして生成がよいよね...まぁちょっとあとで。
-    // カードを複製する
-    // カードをランダムに並び替える
-    // ドムを出力する
 
     for (let i = 0; i < cards.length; i++) {
       const cardInfo: CardType = cards[i];
@@ -31,6 +32,16 @@ class Game {
     this.gameFieldElement.appendChild(element);
   }
 }
+
+/*
+  Card クラス
+  - 将来: カードを複製し量を2倍にし、ランダムに入れ替える
+  - 事前に用意されたカードを元にカードElementを生成
+  - イベント設定
+  - clickCountでセッションを判別
+    - clickCount が1、2の時は sessionID は 0
+    - clickCount が3、4の時は sessionID は 1
+*/
 
 type CardType = {
   suit: string;
@@ -65,12 +76,19 @@ class Card {
   }
 
   // TODO: セッションを追加するとこまできた。カードをめくった回数を管理して、それに応じて判定するロジックを作ってみよう
+  // 名前はセッションというより、別の名前がいいかなとおも思う
+  // フリップがいいかも。
+  // フリップの内容に応じて Turn の作成
+  // フリップ回数に応じて新しいターンの時は new Turn　これをflipの中でやる
   initializeEvent(element: HTMLButtonElement) {
     element.addEventListener('click', () => {
       Card.clickCount++;
       console.log('ClickCount', Card.clickCount);
+
+      // クリック回数が2で割り切れない時、1とか、3とか = セッションスタート
       if (Card.clickCount % 2 !== 0) {
         const session = new Session();
+        // ここの段階で、クリック回数とIDを入れれられるといいね、そうするとわざわざsessionから繰り出す必要はない。
         session.createSession();
         const sessionId = session.getSessionId(Card.clickCount);
         session.addId(sessionId, 'first', this.suit + this.strength);
