@@ -1,4 +1,5 @@
 import { TurnType } from '../types/types';
+import { CardElement } from './CardElement';
 import { Flip } from './Flip';
 
 export class Turn {
@@ -6,18 +7,18 @@ export class Turn {
   turnId: number = Turn.turns.length;
   cardId: string;
   type: string;
-  element: HTMLButtonElement;
+  CardElement: CardElement;
 
-  constructor(cardId: string, element: HTMLButtonElement, type: 'first' | 'second') {
+  constructor(cardId: string, CardElement: CardElement, type: 'first' | 'second') {
     this.cardId = cardId;
     this.type = type;
-    this.element = element;
+    this.CardElement = CardElement;
     this.initialize();
     console.table(Turn.turns);
   }
 
   initialize() {
-    this.element.disabled = true;
+    this.CardElement.beDisabled();
     if (this.type === 'first') {
       this.makeTurn();
     } else {
@@ -42,8 +43,8 @@ export class Turn {
       firstId: this.cardId,
       secondId: '',
       isSame: false,
-      firstElement: this.element,
-      secondElement: this.element,
+      firstElement: this.CardElement,
+      secondElement: this.CardElement,
     };
 
     Turn.turns.push(turn);
@@ -58,6 +59,7 @@ export class Turn {
     }
 
     turn.secondId = this.cardId;
+    turn.secondElement = this.CardElement;
   }
 
   updateIsSame() {
@@ -69,12 +71,10 @@ export class Turn {
     }
 
     turn.isSame = turn.firstId === turn.secondId;
-    turn.secondElement = this.element;
 
-    if (turn.isSame) {
-    } else {
-      turn.firstElement.disabled = false;
-      turn.secondElement.disabled = false;
-    }
+    if (turn.isSame) return;
+
+    turn.firstElement.beActicve();
+    turn.secondElement.beActicve();
   }
 }
