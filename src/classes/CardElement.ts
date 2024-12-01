@@ -1,4 +1,5 @@
 export class CardElement {
+  static cardElements: HTMLButtonElement[] = [];
   element: HTMLButtonElement;
   cardId: string;
   suit: string;
@@ -8,9 +9,12 @@ export class CardElement {
     this.suit = suit;
     this.strength = strength;
     this.cardId = this.suit + this.strength;
+    this.initialize();
   }
 
-  get() {
+  initialize() {
+    CardElement.cardElements.push(this.element);
+    // console.table(CardElement.cardElements);
     const divCardFront = document.createElement('div');
     const divCardBack = document.createElement('div');
     const spanSuit = document.createElement('span');
@@ -28,7 +32,9 @@ export class CardElement {
     divCardFront.appendChild(spanStrength);
     this.element.appendChild(divCardFront);
     this.element.appendChild(divCardBack);
+  }
 
+  get() {
     return this.element;
   }
 
@@ -38,5 +44,17 @@ export class CardElement {
 
   beActicve() {
     this.element.disabled = false;
+  }
+
+  static allBeDesabledByStyle() {
+    for (let i = 0; i < CardElement.cardElements.length; i++) {
+      CardElement.cardElements[i].classList.add('is-not-clickable');
+    }
+  }
+
+  static allBeActiveByStyle() {
+    for (let i = 0; i < CardElement.cardElements.length; i++) {
+      CardElement.cardElements[i].classList.remove('is-not-clickable');
+    }
   }
 }

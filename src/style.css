@@ -24,6 +24,7 @@ body {
     position: relative;
     aspect-ratio: 1/1.4;
     background: transparent;
+    user-select: none;
 
     .card-front {
       aspect-ratio: 1/1.4;
@@ -32,7 +33,6 @@ body {
       background: #fff;
       border: 1px solid #eee;
       border-radius: 4px;
-      cursor: pointer;
       overflow: hidden;
       display: flex;
       align-items: center;
@@ -99,12 +99,13 @@ body {
     }
   }
 
-  button:active {
-    /* opacity: 0.4; */
+  button.is-not-clickable {
+    pointer-events: none;
   }
 
   button:disabled {
     color: inherit;
+    cursor: default;
 
     .card-front {
       transform: translateY(0);
