@@ -3,7 +3,7 @@ import { CardType } from '../types/types';
 import { randomedCards } from '../data/cards';
 import { Message } from './Message';
 
-export class Game {
+export class GameManager {
   gameFieldElement: HTMLElement;
   message: Message;
   constructor(elementId: string) {

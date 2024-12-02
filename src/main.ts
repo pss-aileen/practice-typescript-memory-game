@@ -1,6 +1,5 @@
-import { Game } from './classes/Game';
+import { GameManager } from './classes/GameManager';
 import './style.css';
 
-
-const game = new Game('game');
+const game = new GameManager('game');
 game.initialize();

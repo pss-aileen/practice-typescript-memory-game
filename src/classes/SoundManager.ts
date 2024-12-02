@@ -1,4 +1,4 @@
-export class Sound {
+export class SoundManager {
   static flipSound: HTMLAudioElement = document.getElementById('sound-flip') as HTMLAudioElement;
   static matchSound: HTMLAudioElement = document.getElementById('sound-match') as HTMLAudioElement;
   static notMatchSound: HTMLAudioElement = document.getElementById('sound-not-match') as HTMLAudioElement;
@@ -11,15 +11,15 @@ export class Sound {
   }
 
   static playFlipSound() {
-    this.play(Sound.flipSound);
+    this.play(SoundManager.flipSound);
   }
   static playMatchSound() {
-    this.play(Sound.matchSound);
+    this.play(SoundManager.matchSound);
   }
   static playNotMatchSound() {
-    this.play(Sound.notMatchSound);
+    this.play(SoundManager.notMatchSound);
   }
   static playFinishSound() {
-    this.play(Sound.FinishSound);
+    this.play(SoundManager.FinishSound);
   }
 }

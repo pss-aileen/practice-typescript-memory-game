@@ -2,7 +2,7 @@ import { TurnType } from '../types/types';
 import { CardElement } from './CardElement';
 import { Flip } from './Flip';
 import { Message } from './Message';
-import { Sound } from './Sount';
+import { SoundManager } from './SoundManager';
 
 export class Turn {
   static turns: TurnType[] = [];
@@ -24,7 +24,7 @@ export class Turn {
     if (this.type === 'first') {
       this.makeTurn();
       Message.renderTurnCount(this.turnId + 1);
-      Sound.playFlipSound();
+      SoundManager.playFlipSound();
     } else {
       this.updateSecondId();
       this.updateIsSame();
@@ -79,17 +79,17 @@ export class Turn {
 
     if (turn.isSame) {
       const isAvailable = CardElement.cardElements.filter((cardElement) => cardElement.disabled === false);
-      Sound.playMatchSound();
+      SoundManager.playMatchSound();
       console.log(isAvailable);
       if (isAvailable.length === 0) {
-        Sound.playFinishSound();
+        SoundManager.playFinishSound();
         Message.renderMessage('全部そろいました！おめでとう！！');
       }
       return;
     }
 
     CardElement.allBeDesabledByStyle();
-    Sound.playNotMatchSound();
+    SoundManager.playNotMatchSound();
     setTimeout(() => {
       turn.firstElement.beActicve();
       turn.secondElement.beActicve();
