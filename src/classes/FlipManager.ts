@@ -1,7 +1,7 @@
 import { CardElement } from './CardElement';
-import { Turn } from './Turn';
+import { TurnManager } from './TurnManager';
 
-export class Flip {
+export class FlipManager {
   static flipCount: number = 0;
   cardId: string;
   CardElement: CardElement;
@@ -13,16 +13,16 @@ export class Flip {
   }
 
   initialize() {
-    ++Flip.flipCount;
+    ++FlipManager.flipCount;
     this.createTurn();
-    console.log(Flip.flipCount, this.cardId);
+    console.log(FlipManager.flipCount, this.cardId);
   }
 
   isFirstInTurn() {
-    return Flip.flipCount % 2 !== 0;
+    return FlipManager.flipCount % 2 !== 0;
   }
 
   createTurn() {
-    new Turn(this.cardId, this.CardElement, this.isFirstInTurn() ? 'first' : 'second');
+    new TurnManager(this.cardId, this.CardElement, this.isFirstInTurn() ? 'first' : 'second');
   }
 }
