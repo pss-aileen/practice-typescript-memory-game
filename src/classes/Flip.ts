@@ -1,4 +1,5 @@
 import { CardElement } from './CardElement';
+import { Sound } from './Sount';
 import { Turn } from './Turn';
 
 export class Flip {

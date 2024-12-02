@@ -1,6 +1,7 @@
 import { CardType } from '../types/types';
 import { CardElement } from './CardElement';
 import { Flip } from './Flip';
+import { Sound } from './Sount';
 
 export class Card {
   suit: string;
@@ -24,6 +25,7 @@ export class Card {
   initialize() {
     this.element.addEventListener('click', () => {
       new Flip(this.id, this.CardElement);
+      
     });
   }
 }
