@@ -1,7 +1,6 @@
 import { CardType } from '../types/types';
 import { CardElement } from './CardElement';
 import { Flip } from './Flip';
-import { Sound } from './Sount';
 
 export class Card {
   suit: string;

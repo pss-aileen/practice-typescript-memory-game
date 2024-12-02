@@ -12,7 +12,6 @@ export class Game {
   }
 
   initialize() {
-    // カードを作成する
     this.createCards();
   }
 
