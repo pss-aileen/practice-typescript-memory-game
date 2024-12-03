@@ -14,7 +14,6 @@ export class CardElement {
 
   initialize() {
     CardElement.cardElements.push(this.element);
-    // console.table(CardElement.cardElements);
     const divCardFront = document.createElement('div');
     const divCardBack = document.createElement('div');
     const spanSuit = document.createElement('span');
@@ -26,7 +25,6 @@ export class CardElement {
     spanStrength.classList.add('strength');
     spanStrength.textContent = this.strength;
     divCardBack.textContent = '🐑';
-    // 🫅👸🦁🐼😺
 
     divCardFront.appendChild(spanSuit);
     divCardFront.appendChild(spanStrength);

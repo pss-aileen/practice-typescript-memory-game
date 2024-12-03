@@ -1,8 +1,5 @@
-// import { doubledCards } from './cards';
-import { Game } from './classes/Game';
+import { GameManager } from './classes/GameManager';
 import './style.css';
 
-// console.table(randomedCards);
-
-const game = new Game('game');
+const game = new GameManager('game');
 game.initialize();

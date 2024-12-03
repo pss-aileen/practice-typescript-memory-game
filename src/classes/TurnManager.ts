@@ -1,12 +1,12 @@
 import { TurnType } from '../types/types';
 import { CardElement } from './CardElement';
-import { Flip } from './Flip';
+import { FlipManager } from './FlipManager';
 import { Message } from './Message';
-import { Sound } from './Sount';
+import { SoundManager } from './SoundManager';
 
-export class Turn {
+export class TurnManager {
   static turns: TurnType[] = [];
-  turnId: number = Turn.turns.length;
+  turnId: number = TurnManager.turns.length;
   cardId: string;
   type: string;
   CardElement: CardElement;
@@ -16,7 +16,7 @@ export class Turn {
     this.type = type;
     this.CardElement = CardElement;
     this.initialize();
-    console.table(Turn.turns);
+    console.table(TurnManager.turns);
   }
 
   initialize() {
@@ -24,7 +24,7 @@ export class Turn {
     if (this.type === 'first') {
       this.makeTurn();
       Message.renderTurnCount(this.turnId + 1);
-      Sound.playFlipSound();
+      SoundManager.playFlipSound();
     } else {
       this.updateSecondId();
       this.updateIsSame();
@@ -32,12 +32,12 @@ export class Turn {
   }
 
   getTurnId(): number {
-    if (Flip.flipCount % 2 !== 0) {
+    if (FlipManager.flipCount % 2 !== 0) {
       // 小数点 0.5 とか 1.5 とかを 0、1 に変換
-      return Math.floor(Flip.flipCount / 2);
+      return Math.floor(FlipManager.flipCount / 2);
     } else {
       // 2 で割り切れる数字は - 1 をする
-      return Flip.flipCount / 2 - 1;
+      return FlipManager.flipCount / 2 - 1;
     }
   }
 
@@ -51,12 +51,12 @@ export class Turn {
       secondElement: this.CardElement,
     };
 
-    Turn.turns.push(turn);
+    TurnManager.turns.push(turn);
   }
 
   updateSecondId() {
     const turnId = this.getTurnId();
-    const turn = Turn.turns.find((turn) => turn.id === turnId);
+    const turn = TurnManager.turns.find((turn) => turn.id === turnId);
     if (!turn) {
       console.error('Turnがありません。');
       return;
@@ -69,7 +69,7 @@ export class Turn {
 
   updateIsSame() {
     const turnId = this.getTurnId();
-    const turn = Turn.turns.find((turn) => turn.id === turnId);
+    const turn = TurnManager.turns.find((turn) => turn.id === turnId);
     if (!turn) {
       console.error('Turnがありません。');
       return;
@@ -79,17 +79,17 @@ export class Turn {
 
     if (turn.isSame) {
       const isAvailable = CardElement.cardElements.filter((cardElement) => cardElement.disabled === false);
-      Sound.playMatchSound();
+      SoundManager.playMatchSound();
       console.log(isAvailable);
       if (isAvailable.length === 0) {
-        Sound.playFinishSound();
+        SoundManager.playFinishSound();
         Message.renderMessage('全部そろいました！おめでとう！！');
       }
       return;
     }
 
     CardElement.allBeDesabledByStyle();
-    Sound.playNotMatchSound();
+    SoundManager.playNotMatchSound();
     setTimeout(() => {
       turn.firstElement.beActicve();
       turn.secondElement.beActicve();
