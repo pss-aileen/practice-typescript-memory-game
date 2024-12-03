@@ -1,41 +1,42 @@
-- 同じアレイを 2 回連続でクリックは NG にすること！！
+### GameManager
 
----
+### CardManager
 
-### リファクタリングのためにできること
+### CardView
 
-- type をまとめる
-- 奇数偶数判定の関数を外出ししておくこと
-- カードを 2 倍にして、ランダムに返す取り組みを先に実装してしまうこと
-- カードの値を格納するファイルを分けること
+### FlipManager
 
----
+### TurnManager
 
-### Game: ゲームのコントロール
+- そう、ターンはもう全て static にしてしまえば？と思う
+- 結局たまっていくデータを監視する役割だから。
+- フリップするたびに情報を格納、
+- 最初かそうでないかだけは判別...でもやっぱりそうするとTurnManagerがあったほうがわかりやすいのかな。
 
-- ゲームの初期化
+### SoundManager
 
-### Card: カードの生成メイン
+- static variables
+  - flip
+  - match
+  - not-match
+  - finish
+- static method
+  - playFlipSound()
+  - playMatchSound()
+  - playNotMatchSound()
+  - playFinishSound()
 
-- コンストラクタ: カードの基本的な情報全て、それで HTML 生成するから
-- カードの ID の作成
-- DOM の作成
-- DOM のイベントの設定（Flip や Turn が絡む）
+### MessageManager
 
-### Flip: フリップした際の動き、クラスとかも付与する未来
+- static variables
+  - メッセージを固定する
+  - 表示先を指定
+    - ターンの数表示場所
+    - 実況中継
+- static method
+  - showResult()
+    - お疲れ様的メッセージ
+  - show
+    うーん
 
-- コンストラクタ: cardId をタワす
-- カードのクリック回数ではなく、フリップ回数をここでストア
-- フリップ後のロジックは全てここ
-- Card の DOM であれこれしない
-
-### Turn: フリップ回数に応じて新しいターンの作成をする
-
-- コンストラクタ: flip 回数、card の Id
-- 1 つのターンごとに生成される
-- フリップ回数が奇数の時は、Turn で新しいターンを作成、firstID を指定
-- フリップ回数が偶数の時は、secondId を指定、結果を判定する
-
-### OTHER
-
-- 奇数か偶数かを判定する関数 -> よく使うので
+TypeScriptDocs
