@@ -1,11 +1,13 @@
 import { CardType } from '../types/types';
-import { CardManager } from './CardManager';
+import { Flip } from './Flip';
 
 export class Card {
   private info: CardType;
-  element: HTMLButtonElement;
+  private id: string;
+  private element: HTMLButtonElement;
   constructor({ suit: suit, strength: strength }: CardType) {
     this.info = { suit: suit, strength: strength };
+    this.id = this.info.suit + this.info.strength;
     this.element = this.createElement();
     this.eventInitialize();
   }
@@ -29,30 +31,23 @@ export class Card {
     button.appendChild(divCardFront);
     button.appendChild(divCardBack);
 
-    CardManager.cardElements.push(this.element);
     return button;
   }
 
   private eventInitialize() {
     this.element.addEventListener('click', () => {
-      CardManager.flipCount++;
       console.log('Hi!', this.info.suit, this.info.strength);
-      const isFirst = CardManager.flipCount % 2 !== 0;
-      const turnNumber = 0;
-      // ターンの数を判別して、ここでデータを送る...？うーん
-      // でもそれはTurnの中でやる
-      // ターンは生成したほうがいいかも、ターンが1か2でどちらか判別
-      // それに伴って操作をする
-      // だからTurnManagerはターンを貯めるところがいいのかも。うーん。ちょっとまた考えよう。
-      if (isFirst) {
-        console.log('ターンを生成');
-      } else {
-        console.log('ターンは生成しない');
-      }
-      // turnを生成して、捨てるっているのができないよね...結局。うーん、2つ目のっていうのを考えると、結局flipを作って
-      // カードエレメントの奇数偶数で判定
-      // 結局そこで計算が必要になるよね...？
+      new Flip(this);
+      this.fliped();
     });
+  }
+
+  getElement() {
+    return this.element;
+  }
+
+  getId() {
+    return this.id;
   }
 
   fliped() {
@@ -63,9 +58,13 @@ export class Card {
     this.activeByAttribute();
   }
 
-  clickDisabled() {}
+  clickDisabled() {
+    this.disableByStyle();
+  }
 
-  clickActivated() {}
+  clickActivated() {
+    this.activeByStyle();
+  }
 
   private disableByAttribute() {
     this.element.disabled = true;
@@ -75,11 +74,11 @@ export class Card {
     this.element.disabled = false;
   }
 
-  private disableByStyle() {}
+  private disableByStyle() {
+    this.element.classList.add('is-not-clickable');
+  }
 
-  private activeByStyle() {}
-
-  getElement() {
-    return this.element;
+  private activeByStyle() {
+    this.element.classList.remove('is-not-clickable');
   }
 }

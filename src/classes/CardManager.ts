@@ -4,8 +4,8 @@ import { GameManager } from './GameManaget';
 
 export class CardManager {
   private cards: CardType[];
-  static cardElements: HTMLButtonElement[] = [];
-  static flipCount: number = 0;
+  static cardInstances: Card[] = [];
+
   constructor(cards: CardType[]) {
     this.cards = cards;
     this.initialize();
@@ -22,8 +22,21 @@ export class CardManager {
         suit: cardInfo.suit,
         strength: cardInfo.strength,
       });
+      CardManager.cardInstances.push(card);
       const cardElement = card.getElement();
       GameManager.gameFieldElement.appendChild(cardElement);
+    }
+  }
+
+  static allBeDesabledByStyle() {
+    for (let i = 0; i < CardManager.cardInstances.length; i++) {
+      CardManager.cardInstances[i].clickDisabled();
+    }
+  }
+
+  static allBeActiveByStyle() {
+    for (let i = 0; i < CardManager.cardInstances.length; i++) {
+      CardManager.cardInstances[i].clickActivated();
     }
   }
 }
