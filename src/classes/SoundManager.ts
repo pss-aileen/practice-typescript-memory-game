@@ -1,8 +1,8 @@
 export class SoundManager {
-  static flipSound: HTMLAudioElement = document.getElementById('sound-flip') as HTMLAudioElement;
-  static matchSound: HTMLAudioElement = document.getElementById('sound-match') as HTMLAudioElement;
-  static notMatchSound: HTMLAudioElement = document.getElementById('sound-not-match') as HTMLAudioElement;
-  static FinishSound: HTMLAudioElement = document.getElementById('sound-finish') as HTMLAudioElement;
+  private static flipSound: HTMLAudioElement = document.getElementById('sound-flip') as HTMLAudioElement;
+  private static matchSound: HTMLAudioElement = document.getElementById('sound-match') as HTMLAudioElement;
+  private static notMatchSound: HTMLAudioElement = document.getElementById('sound-not-match') as HTMLAudioElement;
+  private static FinishSound: HTMLAudioElement = document.getElementById('sound-finish') as HTMLAudioElement;
   constructor() {}
 
   static play(element: HTMLAudioElement) {

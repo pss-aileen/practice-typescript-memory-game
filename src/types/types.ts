@@ -1,4 +1,4 @@
-import { CardElement } from '../classes/CardElement';
+import { Card } from '../classes/Card';
 
 export type CardType = {
   suit: string;
@@ -7,9 +7,7 @@ export type CardType = {
 
 export type TurnType = {
   id: number;
-  firstId: string;
-  secondId: string;
-  firstElement: CardElement;
-  secondElement: CardElement;
+  firstInstance: Card | undefined;
+  secondInstance: Card | undefined;
   isSame: boolean;
 };
