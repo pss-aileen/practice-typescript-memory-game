@@ -26,7 +26,7 @@ export class Card {
     spanSuit.classList.add('suit', 'bi', `bi-suit-${this.info.suit}-fill`);
     spanStrength.classList.add('strength');
     spanStrength.textContent = this.info.strength;
-    divCardBack.textContent = '🐑';
+    divCardBack.textContent = '🤡';
 
     divCardFront.appendChild(spanSuit);
     divCardFront.appendChild(spanStrength);
@@ -38,7 +38,6 @@ export class Card {
 
   private eventInitialize() {
     this.element.addEventListener('click', () => {
-      console.log('Hi!', this.info.suit, this.info.strength);
       new Flip(this);
     });
   }

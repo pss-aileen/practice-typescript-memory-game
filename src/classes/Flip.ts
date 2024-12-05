@@ -3,6 +3,7 @@ import { Card } from './Card';
 import { CardManager } from './CardManager';
 import { MessageManager } from './MessageManager';
 import { SoundManager } from './SoundManager';
+import confetti from 'canvas-confetti';
 
 export class Flip {
   static flipCount: number = 0;
@@ -12,7 +13,6 @@ export class Flip {
 
   constructor(cardInstance: Card) {
     this.cardInstance = cardInstance;
-    console.log(cardInstance);
     this.initialize();
   }
 
@@ -27,7 +27,6 @@ export class Flip {
     } else if (this.order === 'second') {
       this.updateSecondInstance();
       this.updateIsSame();
-      console.table(Flip.turns[Flip.turns.length - 1]);
     }
   }
 
@@ -70,15 +69,17 @@ export class Flip {
         if (cardsNotMatched.length === 0) {
           SoundManager.playFinishSound();
           MessageManager.renderMessage('おめでとうございます！全部揃いました！');
+          confetti({
+            particleCount: 200,
+            spread: 100,
+            origin: { y: 0.8 },
+          });
         }
       } else {
-        SoundManager.playNotMatchSound();
         CardManager.allBeDesabledByStyle();
-        console.log('間違いです');
         setTimeout(() => {
-          // TODO: ここの型をどうにかしたい
-          turn.firstInstance?.unfliped();
-          turn.secondInstance?.unfliped();
+          turn.firstInstance && turn.firstInstance.unfliped();
+          turn.secondInstance && turn.secondInstance.unfliped();
           CardManager.allBeActiveByStyle();
         }, 800);
       }

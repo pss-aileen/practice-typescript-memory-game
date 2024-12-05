@@ -9,7 +9,6 @@ export class CardData {
 
   constructor() {
     this.initialize();
-    console.table(this.selectedCards);
   }
 
   initialize() {
