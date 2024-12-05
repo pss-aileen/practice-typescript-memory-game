@@ -1,4 +1,4 @@
-import { CardElement } from '../classes/CardElement';
+import { CardElement } from '../classes_bk/CardElement';
 
 export type CardType = {
   suit: string;

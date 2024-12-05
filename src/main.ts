@@ -1,5 +1,4 @@
-import { GameManager } from './classes/GameManager';
-import './style.css';
+// import './style.css';
+import { GameManager } from './classes/GameManaget';
 
-const game = new GameManager('game');
-game.initialize();
+const gameManager = new GameManager();
