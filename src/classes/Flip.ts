@@ -1,6 +1,7 @@
 import { TurnType } from '../types/types';
 import { Card } from './Card';
 import { CardManager } from './CardManager';
+import { MessageManager } from './MessageManager';
 import { SoundManager } from './SoundManager';
 
 export class Flip {
@@ -43,6 +44,7 @@ export class Flip {
     };
 
     Flip.turns.push(turn);
+    MessageManager.renderTurnCount(Flip.turns.length);
   }
 
   private updateSecondInstance() {
@@ -67,6 +69,7 @@ export class Flip {
 
         if (cardsNotMatched.length === 0) {
           SoundManager.playFinishSound();
+          MessageManager.renderMessage('おめでとうございます！全部揃いました！');
         }
       } else {
         SoundManager.playNotMatchSound();
