@@ -1,4 +1,5 @@
 import { CardType } from '../types/types';
+import { CardManager } from './CardManager';
 import { Flip } from './Flip';
 
 export class Card {
@@ -10,6 +11,7 @@ export class Card {
     this.id = this.info.suit + this.info.strength;
     this.element = this.createElement();
     this.eventInitialize();
+    CardManager.cardInstances.push(this);
   }
 
   private createElement() {
@@ -38,7 +40,6 @@ export class Card {
     this.element.addEventListener('click', () => {
       console.log('Hi!', this.info.suit, this.info.strength);
       new Flip(this);
-      this.fliped();
     });
   }
 
@@ -64,6 +65,10 @@ export class Card {
 
   clickActivated() {
     this.activeByStyle();
+  }
+
+  isFlipped() {
+    return this.element.disabled === true;
   }
 
   private disableByAttribute() {

@@ -5,8 +5,6 @@ export class GameManager {
   static gameFieldElement: HTMLElement;
   constructor() {
     this.initialize();
-    const cardData = new CardData();
-    const cardManager = new CardManager(cardData.getCards());
   }
 
   initialize() {
@@ -14,5 +12,8 @@ export class GameManager {
     if (!GameManager.gameFieldElement) {
       throw new Error('There is no gameFieldElement! Please set "game" id.');
     }
+
+    const cardData = new CardData();
+    new CardManager(cardData.getCards());
   }
 }

@@ -7,7 +7,7 @@ export type CardType = {
 
 export type TurnType = {
   id: number;
-  firstElement: Card | null;
-  secondElement: Card | null;
+  firstInstance: Card | undefined;
+  secondInstance: Card | undefined;
   isSame: boolean;
 };

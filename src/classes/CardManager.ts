@@ -22,7 +22,6 @@ export class CardManager {
         suit: cardInfo.suit,
         strength: cardInfo.strength,
       });
-      CardManager.cardInstances.push(card);
       const cardElement = card.getElement();
       GameManager.gameFieldElement.appendChild(cardElement);
     }
