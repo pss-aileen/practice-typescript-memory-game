@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ja">
 
 <head>
   <meta charset="UTF-8" />
@@ -13,6 +13,14 @@
 
   <div class="wrapper">
     <h1>Memory Game</h1>
+
+    <form>
+      <label>
+        カードの種類
+        <input type="number" value="8" step="1" id="card-number" min="2" max="26">
+      </label>
+      <button id="set-card-number">設定する</button>
+    </form>
 
     <div id="result">
       <div id="message">カードを合わせよう！</div>

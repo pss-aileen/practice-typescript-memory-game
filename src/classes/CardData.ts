@@ -1,13 +1,14 @@
 import { CardType } from '../types/types';
 
 export class CardData {
-  cardNumber: number = 8;
+  cardNumber: number;
   suitTypes: string[] = ['heart', 'diamond', 'spade', 'club'];
   strengthTypes: string[] = ['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6', '5', '4', '3', '2'];
   initialCards: CardType[] = [];
   selectedCards: CardType[] = [];
 
-  constructor() {
+  constructor(cardNumber: number) {
+    this.cardNumber = cardNumber;
     this.initialize();
   }
 
