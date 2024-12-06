@@ -50,39 +50,39 @@ export class Card {
     return this.id;
   }
 
-  fliped() {
-    this.disableByAttribute();
+  flip() {
+    this.deactivateByAttribute();
   }
 
-  unfliped() {
-    this.activeByAttribute();
+  flipBack() {
+    this.activateByAttribute();
   }
 
-  clickDisabled() {
-    this.disableByStyle();
+  deactivateClick() {
+    this.deactivateByStyle();
   }
 
-  clickActivated() {
-    this.activeByStyle();
+  activateClick() {
+    this.activateByStyle();
   }
 
   isFlipped() {
     return this.element.disabled === true;
   }
 
-  private disableByAttribute() {
+  private deactivateByAttribute() {
     this.element.disabled = true;
   }
 
-  private activeByAttribute() {
+  private activateByAttribute() {
     this.element.disabled = false;
   }
 
-  private disableByStyle() {
+  private deactivateByStyle() {
     this.element.classList.add('is-not-clickable');
   }
 
-  private activeByStyle() {
+  private activateByStyle() {
     this.element.classList.remove('is-not-clickable');
   }
 }
