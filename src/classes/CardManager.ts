@@ -12,7 +12,17 @@ export class CardManager {
   }
 
   private initialize() {
+    CardManager.cardInstances = [];
+    this.deleteCards();
     this.renderCards();
+  }
+
+  private deleteCards() {
+    if (GameManager.gameFieldElement.firstChild) {
+      while (GameManager.gameFieldElement.firstChild) {
+        GameManager.gameFieldElement.removeChild(GameManager.gameFieldElement.firstChild);
+      }
+    }
   }
 
   private renderCards() {
