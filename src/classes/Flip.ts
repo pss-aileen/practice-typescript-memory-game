@@ -18,7 +18,7 @@ export class Flip {
 
   initialize() {
     Flip.flipCount++;
-    this.cardInstance.fliped();
+    this.cardInstance.flip();
     SoundManager.playFlipSound();
     this.order = this.getOrderInTurn();
 
@@ -78,8 +78,8 @@ export class Flip {
       } else {
         CardManager.allBeDesabledByStyle();
         setTimeout(() => {
-          turn.firstInstance && turn.firstInstance.unfliped();
-          turn.secondInstance && turn.secondInstance.unfliped();
+          turn.firstInstance && turn.firstInstance.flipBack();
+          turn.secondInstance && turn.secondInstance.flipBack();
           CardManager.allBeActiveByStyle();
         }, 800);
       }

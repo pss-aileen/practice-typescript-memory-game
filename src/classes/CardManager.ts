@@ -39,13 +39,13 @@ export class CardManager {
 
   static allBeDesabledByStyle() {
     for (let i = 0; i < CardManager.cardInstances.length; i++) {
-      CardManager.cardInstances[i].clickDisabled();
+      CardManager.cardInstances[i].deactivateClick();
     }
   }
 
   static allBeActiveByStyle() {
     for (let i = 0; i < CardManager.cardInstances.length; i++) {
-      CardManager.cardInstances[i].clickActivated();
+      CardManager.cardInstances[i].activateClick();
     }
   }
 }
